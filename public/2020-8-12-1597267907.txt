@@ -1,0 +1,7 @@
+{
+  "Date": "2020-8-12",
+  "Calculation Type": "combined",
+  "Input 1": "0.5",
+  "Input 2": "0.5",
+  "Result": 0.25
+}

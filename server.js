@@ -1,42 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
-const knex = require('knex');
-
-const register = require('./controllers/register');
-const signin = require('./controllers/signin');
-
-
-const db = knex({
-    client: 'pg',
-    connection: {
-        host: '127.0.0.1',
-        user: 'postgres',
-        password: ' ',
-        database: 'Smart-Brain'
-    }
-});
-
-
+const logCalculation = require('./controllers/logCalculation');
 
 const app = express();
 
+//APP CONFIG
+app.use('/public', express.static(__dirname + '/public'));  
+app.use(express.static(__dirname + '/public')); 
 app.use(bodyParser.json());
-app.use(cors())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
+
+//SET PUBLIC FOLDER PATH
+publicPath = __dirname + '/public';
 
 
-app.get('/', (req, res) => {
-    res.send(database.users);
-})
-
-app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) })
-
-app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
+//API ROUTES
+app.post('/save', (req, res) => { logCalculation.handleLogCalculation(req, res, publicPath) })
 
 
-
-app.listen(3000, () => {
-    console.log('app is running 3000');
+//LOCAL SERVER
+app.listen(3001, () => {
+    console.log('app is running 3001');
 })
 
